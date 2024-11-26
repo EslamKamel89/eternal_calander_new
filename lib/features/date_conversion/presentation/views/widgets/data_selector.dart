@@ -1,5 +1,7 @@
 import 'package:eternal_calander_new/core/extensions/context-extensions.dart';
+import 'package:eternal_calander_new/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DataSelector extends StatefulWidget {
   const DataSelector({super.key});
@@ -11,12 +13,13 @@ class DataSelector extends StatefulWidget {
 enum DataProcessingOption { before, after }
 
 class DataSelectorState extends State<DataSelector> {
-  DataProcessingOption? _selectedOption = DataProcessingOption.after;
+  // DataProcessingOption? _selectedOption = DataProcessingOption.after;
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<DateConversionCubit>();
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -29,36 +32,78 @@ class DataSelectorState extends State<DataSelector> {
             children: [
               Expanded(
                 child: RadioListTile<DataProcessingOption>(
-                  title: Text('After\nProcessing',
-                      style: TextStyle(
-                        color: _selectedOption == DataProcessingOption.after ? context.primaryColor : null,
-                        fontWeight: _selectedOption == DataProcessingOption.after ? FontWeight.bold : null,
-                      )),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'After',
+                        style: TextStyle(
+                          color: controller.state.selectedOption == DataProcessingOption.after
+                              ? context.primaryColor
+                              : null,
+                          fontWeight:
+                              controller.state.selectedOption == DataProcessingOption.after ? FontWeight.bold : null,
+                        ),
+                      ),
+                      Text(
+                        'Processing',
+                        style: TextStyle(
+                          color: controller.state.selectedOption == DataProcessingOption.after
+                              ? context.primaryColor
+                              : null,
+                          fontWeight:
+                              controller.state.selectedOption == DataProcessingOption.after ? FontWeight.bold : null,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
                   value: DataProcessingOption.after,
                   selectedTileColor: context.secondaryHeaderColor,
                   activeColor: context.secondaryHeaderColor,
-                  groupValue: _selectedOption,
+                  groupValue: controller.state.selectedOption,
                   onChanged: (DataProcessingOption? value) {
                     setState(() {
-                      _selectedOption = value;
+                      controller.state.selectedOption = value!;
                     });
                   },
                 ),
               ),
               Expanded(
                 child: RadioListTile<DataProcessingOption>(
-                  title: Text('Before\nProcessing',
-                      style: TextStyle(
-                        color: _selectedOption == DataProcessingOption.before ? context.primaryColor : null,
-                        fontWeight: _selectedOption == DataProcessingOption.before ? FontWeight.bold : null,
-                      )),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Before',
+                        style: TextStyle(
+                          color: controller.state.selectedOption == DataProcessingOption.before
+                              ? context.primaryColor
+                              : null,
+                          fontWeight:
+                              controller.state.selectedOption == DataProcessingOption.before ? FontWeight.bold : null,
+                        ),
+                      ),
+                      Text(
+                        'Processing',
+                        style: TextStyle(
+                          color: controller.state.selectedOption == DataProcessingOption.before
+                              ? context.primaryColor
+                              : null,
+                          fontWeight:
+                              controller.state.selectedOption == DataProcessingOption.before ? FontWeight.bold : null,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
                   value: DataProcessingOption.before,
                   selectedTileColor: context.secondaryHeaderColor,
                   activeColor: context.secondaryHeaderColor,
-                  groupValue: _selectedOption,
+                  groupValue: controller.state.selectedOption,
                   onChanged: (DataProcessingOption? value) {
                     setState(() {
-                      _selectedOption = value;
+                      controller.state.selectedOption = value!;
                     });
                   },
                 ),

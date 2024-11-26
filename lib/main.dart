@@ -4,6 +4,7 @@ import 'package:eternal_calander_new/core/router/app_router.dart';
 import 'package:eternal_calander_new/core/router/app_routes_names.dart';
 import 'package:eternal_calander_new/core/service_locator/service_locator.dart';
 import 'package:eternal_calander_new/core/themes/theme_cubit.dart';
+import 'package:eternal_calander_new/features/date_conversion/presentation/cubits/date_conversion/date_conversion_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (_) => ThemeCubit(),
+          ),
+          BlocProvider(
+            create: (context) => DateConversionCubit(dateConversionRepo: serviceLocator()),
           )
         ],
         child: Builder(builder: (context) {

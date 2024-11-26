@@ -39,7 +39,7 @@ class WisdomCarousel extends StatelessWidget {
         // const SizedBox(height: 20),
         CarouselSlider(
           options: CarouselOptions(
-            height: 130.0.h,
+            height: 100.0.h,
             autoPlay: true,
             enlargeCenterPage: true,
             autoPlayInterval: const Duration(seconds: 5),
@@ -69,7 +69,7 @@ class WisdomCarousel extends StatelessWidget {
                       wisdom,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         color: context.primaryColor,
                       ),

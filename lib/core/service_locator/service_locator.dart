@@ -3,6 +3,9 @@ import 'package:eternal_calander_new/core/api_service/api_consumer.dart';
 import 'package:eternal_calander_new/core/api_service/dio_consumer.dart';
 import 'package:eternal_calander_new/core/router/app_router.dart';
 import 'package:eternal_calander_new/core/router/middleware.dart';
+import 'package:eternal_calander_new/features/date_conversion/data/data_source/date_conversion_data_source.dart';
+import 'package:eternal_calander_new/features/date_conversion/data/repos/date_conversion_repo_impl.dart';
+import 'package:eternal_calander_new/features/date_conversion/domain/repo/date_conversion_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +18,9 @@ Future initServiceLocator() async {
   serviceLocator.registerLazySingleton<SharedPreferences>(() => prefs);
   serviceLocator.registerLazySingleton<AppMiddleWare>(() => AppMiddleWare(sharedPreferences: serviceLocator()));
   serviceLocator.registerLazySingleton<AppRouter>(() => AppRouter(appMiddleWare: serviceLocator()));
+  serviceLocator.registerLazySingleton<HomeRepoDataSource>(() => HomeRepoDataSource(api: serviceLocator()));
+  serviceLocator
+      .registerLazySingleton<DateConversionRepo>(() => DateConversionRepoImpl(homeRepoDataSource: serviceLocator()));
 
   // serviceLocator.registerLazySingleton<HomeRemoteDataSource>(() => HomeRemoteDataSource(api: serviceLocator()));
   // serviceLocator.registerLazySingleton<HomeRepo>(() => HomeRepoImp(homeRemoteDataSource: serviceLocator()));
